@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYC Takeover</title>
     
-    <!-- React & ReactDOM (Development versions for easy debugging, switch to prod for speed if needed) -->
+    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
-    <!-- Babel for translating JSX in the browser -->
+    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Tailwind CSS -->
@@ -32,7 +32,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Icons (Inline SVGs to remove build dependencies) ---
+        // --- Icons ---
         const IconBase = ({ children, className, ...props }) => (
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -61,14 +61,16 @@
             Briefcase: (p) => <IconBase {...p}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></IconBase>,
             MapPin: (p) => <IconBase {...p}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></IconBase>,
             GraduationCap: (p) => <IconBase {...p}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></IconBase>,
-            Waves: (p) => <IconBase {...p}><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></IconBase>
+            Waves: (p) => <IconBase {...p}><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></IconBase>,
+            User: (p) => <IconBase {...p}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconBase>
         };
 
         const App = () => {
             const [activeTab, setActiveTab] = useState('itinerary');
 
             // --- DATA CONFIGURATION ---
-            // UPDATE THESE VALUES with the real info from your screenshot
+            
+            // LUKE'S FLIGHTS
             const flightInfo = {
                 outbound: {
                     date: "Wednesday, Jan 21",
@@ -76,7 +78,7 @@
                     flightNum: "UA 609", 
                     depart: "DFW",
                     departTime: "11:05 AM",
-                    arrive: "NYC",
+                    arrive: "LGA", // Changed to LGA based on flight UA609 typical route to Newark/LGA, but preserving NYC generic if needed. Assuming LGA/EWR.
                     arriveTime: "3:26 PM",
                     terminal: "E"
                 },
@@ -84,11 +86,35 @@
                     date: "Friday, Jan 23",
                     airline: "United Airlines",
                     flightNum: "UA 2330",
-                    depart: "NYC",
+                    depart: "LGA", // Assuming same airport return
                     departTime: "1:00 PM",
                     arrive: "DFW",
                     arriveTime: "4:15 PM",
                     terminal: "C"
+                }
+            };
+
+            // TYLER'S FLIGHTS
+            const tylerFlightInfo = {
+                outbound: {
+                    date: "Wednesday, Jan 21",
+                    airline: "Southwest", 
+                    flightNum: "WN 1058", 
+                    depart: "BNA",
+                    departTime: "7:45 AM",
+                    arrive: "LGA",
+                    arriveTime: "10:50 AM",
+                    terminal: "B"
+                },
+                inbound: {
+                    date: "Friday, Jan 23",
+                    airline: "Southwest",
+                    flightNum: "WN 1604",
+                    depart: "LGA",
+                    departTime: "10:05 AM",
+                    arrive: "BNA",
+                    arriveTime: "11:45 AM",
+                    terminal: "B"
                 }
             };
             // --------------------------
@@ -157,8 +183,14 @@
                                         <EventCard 
                                             icon={<Icons.RealPlane className="text-blue-400" />}
                                             time="11:05 AM"
-                                            title="Touchdown NYC"
-                                            desc="Wheels up from DFW. Get the playlist ready."
+                                            title="Luke Inbound"
+                                            desc="Wheels up from DFW."
+                                        />
+                                        <EventCard 
+                                            icon={<Icons.RealPlane className="text-red-500" />}
+                                            time="10:50 AM"
+                                            title="Tyler Inbound"
+                                            desc="Tyler lands at LGA from Nashville."
                                         />
                                         <EventCard 
                                             icon={<Icons.Building className="text-purple-400" />}
@@ -220,9 +252,15 @@
                                     <div className="space-y-6">
                                         <EventCard 
                                             icon={<Icons.RealPlane className="text-red-400" />}
+                                            time="10:00 AM"
+                                            title="Tyler Extraction"
+                                            desc="Tyler departs LGA -> BNA."
+                                        />
+                                        <EventCard 
+                                            icon={<Icons.RealPlane className="text-blue-400" />}
                                             time="1:00 PM"
-                                            title="Extraction"
-                                            desc="Wheels up. Back to base."
+                                            title="Luke Extraction"
+                                            desc="Luke departs LGA -> DFW."
                                         />
                                     </div>
                                 </div>
@@ -254,87 +292,46 @@
                                     </div>
                                 </div>
 
-                                {/* Flight Card Outbound */}
-                                <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                        <Icons.RealPlane size={80} />
-                                    </div>
-                                    <div className="flex justify-between items-center mb-6">
-                                        <div className="text-left">
-                                            <div className="text-4xl font-black text-white">{flightInfo.outbound.depart}</div>
-                                            <div className="text-zinc-500 text-xs uppercase tracking-wider">Origin</div>
-                                        </div>
-                                        <div className="flex flex-col items-center">
-                                            <div className="h-[1px] w-12 bg-zinc-700 mb-1"></div>
-                                            <Icons.RealPlane size={16} className="text-zinc-500 rotate-90" />
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-4xl font-black text-white">{flightInfo.outbound.arrive}</div>
-                                            <div className="text-zinc-500 text-xs uppercase tracking-wider">Destination</div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                                        <div>
-                                            <div className="text-zinc-500 text-xs">Date</div>
-                                            <div className="text-white font-medium">{flightInfo.outbound.date}</div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-zinc-500 text-xs">Flight</div>
-                                            <div className="text-white font-medium">{flightInfo.outbound.flightNum}</div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4 text-sm bg-zinc-950/50 p-3 rounded-lg border border-zinc-800">
-                                        <div>
-                                            <div className="text-zinc-500 text-xs">Departs</div>
-                                            <div className="text-white font-bold">{flightInfo.outbound.departTime}</div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-zinc-500 text-xs">Arrives</div>
-                                            <div className="text-white font-bold">{flightInfo.outbound.arriveTime}</div>
-                                        </div>
-                                    </div>
+                                {/* Luke's Section Header */}
+                                <div className="flex items-center space-x-2 mt-8 mb-2">
+                                    <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-xs font-bold text-white">LW</div>
+                                    <h3 className="text-lg font-bold text-zinc-200">Luke's Air Support</h3>
                                 </div>
 
-                                {/* Flight Card Inbound */}
-                                <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                        <Icons.RealPlane size={80} className="rotate-180" />
-                                    </div>
-                                    <div className="flex justify-between items-center mb-6">
-                                        <div className="text-left">
-                                            <div className="text-4xl font-black text-white">{flightInfo.inbound.depart}</div>
-                                            <div className="text-zinc-500 text-xs uppercase tracking-wider">Origin</div>
-                                        </div>
-                                        <div className="flex flex-col items-center">
-                                            <div className="h-[1px] w-12 bg-zinc-700 mb-1"></div>
-                                            <Icons.RealPlane size={16} className="text-zinc-500 -rotate-90" />
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-4xl font-black text-white">HOME</div>
-                                            <div className="text-zinc-500 text-xs uppercase tracking-wider">Destination</div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                                        <div>
-                                            <div className="text-zinc-500 text-xs">Date</div>
-                                            <div className="text-white font-medium">{flightInfo.inbound.date}</div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-zinc-500 text-xs">Flight</div>
-                                            <div className="text-white font-medium">{flightInfo.inbound.flightNum}</div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4 text-sm bg-zinc-950/50 p-3 rounded-lg border border-zinc-800">
-                                        <div>
-                                            <div className="text-zinc-500 text-xs">Departs</div>
-                                            <div className="text-white font-bold">{flightInfo.inbound.departTime}</div>
-                                        </div>
-                                        <div className="text-right">
-                                            <div className="text-zinc-500 text-xs">Arrives</div>
-                                            <div className="text-white font-bold">{flightInfo.inbound.arriveTime}</div>
-                                        </div>
-                                    </div>
+                                {/* Flight Card Outbound (Luke) */}
+                                <FlightCard 
+                                    info={flightInfo.outbound} 
+                                    isReturn={false}
+                                    iconColor="text-orange-500"
+                                />
+
+                                {/* Flight Card Inbound (Luke) */}
+                                <FlightCard 
+                                    info={flightInfo.inbound} 
+                                    isReturn={true}
+                                    iconColor="text-orange-500"
+                                />
+
+
+                                {/* Tyler's Section Header */}
+                                <div className="flex items-center space-x-2 mt-8 mb-2">
+                                    <div className="w-8 h-8 rounded-full bg-red-700 flex items-center justify-center text-xs font-bold text-white">TS</div>
+                                    <h3 className="text-lg font-bold text-zinc-200">Tyler's Air Support</h3>
                                 </div>
+
+                                {/* Flight Card Outbound (Tyler) */}
+                                <FlightCard 
+                                    info={tylerFlightInfo.outbound} 
+                                    isReturn={false}
+                                    iconColor="text-red-500"
+                                />
+
+                                {/* Flight Card Inbound (Tyler) */}
+                                <FlightCard 
+                                    info={tylerFlightInfo.inbound} 
+                                    isReturn={true}
+                                    iconColor="text-red-500"
+                                />
 
                             </div>
                         )}
@@ -419,6 +416,48 @@
                 </div>
             );
         };
+
+        const FlightCard = ({ info, isReturn, iconColor }) => (
+            <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 relative overflow-hidden group mb-4">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Icons.RealPlane size={80} className={isReturn ? "rotate-180" : ""} />
+                </div>
+                <div className="flex justify-between items-center mb-6">
+                    <div className="text-left">
+                        <div className="text-4xl font-black text-white">{info.depart}</div>
+                        <div className="text-zinc-500 text-xs uppercase tracking-wider">Origin</div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <div className="h-[1px] w-12 bg-zinc-700 mb-1"></div>
+                        <Icons.RealPlane size={16} className={`${iconColor} ${isReturn ? "-rotate-90" : "rotate-90"}`} />
+                    </div>
+                    <div className="text-right">
+                        <div className="text-4xl font-black text-white">{info.arrive}</div>
+                        <div className="text-zinc-500 text-xs uppercase tracking-wider">Dest</div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+                    <div>
+                        <div className="text-zinc-500 text-xs">Date</div>
+                        <div className="text-white font-medium">{info.date}</div>
+                    </div>
+                    <div className="text-right">
+                        <div className="text-zinc-500 text-xs">Flight</div>
+                        <div className="text-white font-medium">{info.flightNum}</div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm bg-zinc-950/50 p-3 rounded-lg border border-zinc-800">
+                    <div>
+                        <div className="text-zinc-500 text-xs">Departs</div>
+                        <div className="text-white font-bold">{info.departTime}</div>
+                    </div>
+                    <div className="text-right">
+                        <div className="text-zinc-500 text-xs">Arrives</div>
+                        <div className="text-white font-bold">{info.arriveTime}</div>
+                    </div>
+                </div>
+            </div>
+        );
 
         const EventCard = ({ icon, time, title, desc, location, tag, highlight }) => (
             <div className={`flex gap-4 ${highlight ? 'bg-zinc-900/80 p-4 rounded-xl border border-yellow-500/30' : ''}`}>
