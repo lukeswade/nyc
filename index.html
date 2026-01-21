@@ -70,7 +70,7 @@
 
             // --- DATA CONFIGURATION ---
             
-            // LUKE'S FLIGHTS
+            // LUKE'S FLIGHTS (EWR)
             const flightInfo = {
                 outbound: {
                     date: "Wednesday, Jan 21",
@@ -78,7 +78,7 @@
                     flightNum: "UA 609", 
                     depart: "DFW",
                     departTime: "11:05 AM",
-                    arrive: "LGA", // Changed to LGA based on flight UA609 typical route to Newark/LGA, but preserving NYC generic if needed. Assuming LGA/EWR.
+                    arrive: "EWR", 
                     arriveTime: "3:26 PM",
                     terminal: "E"
                 },
@@ -86,7 +86,7 @@
                     date: "Friday, Jan 23",
                     airline: "United Airlines",
                     flightNum: "UA 2330",
-                    depart: "LGA", // Assuming same airport return
+                    depart: "EWR", 
                     departTime: "1:00 PM",
                     arrive: "DFW",
                     arriveTime: "4:15 PM",
@@ -94,14 +94,14 @@
                 }
             };
 
-            // TYLER'S FLIGHTS
+            // TYLER'S FLIGHTS (LGA)
             const tylerFlightInfo = {
                 outbound: {
                     date: "Wednesday, Jan 21",
                     airline: "Southwest", 
                     flightNum: "WN 1058", 
                     depart: "BNA",
-                    departTime: "7:45 AM",
+                    departTime: "07:45 AM",
                     arrive: "LGA",
                     arriveTime: "10:50 AM",
                     terminal: "B"
@@ -181,22 +181,34 @@
                                     
                                     <div className="space-y-6">
                                         <EventCard 
-                                            icon={<Icons.RealPlane className="text-blue-400" />}
-                                            time="11:05 AM"
-                                            title="Luke Inbound"
-                                            desc="Wheels up from DFW."
+                                            icon={<Icons.RealPlane className="text-red-500" />}
+                                            time="07:45 AM"
+                                            title="Tyler Departs"
+                                            desc="Wheels up BNA. Tyler questions if 7:45 AM is a real time."
                                         />
                                         <EventCard 
                                             icon={<Icons.RealPlane className="text-red-500" />}
                                             time="10:50 AM"
-                                            title="Tyler Inbound"
-                                            desc="Tyler lands at LGA from Nashville."
+                                            title="Tyler Lands LGA"
+                                            desc="The Eagle has landed. Transit to SOHO immediately."
+                                        />
+                                        <EventCard 
+                                            icon={<Icons.RealPlane className="text-orange-500" />}
+                                            time="11:05 AM"
+                                            title="Luke Departs DFW"
+                                            desc="Wheels up. Queue the 'NYC Hype' playlist."
+                                        />
+                                        <EventCard 
+                                            icon={<Icons.RealPlane className="text-orange-500" />}
+                                            time="03:26 PM"
+                                            title="Luke Lands EWR"
+                                            desc="Welcome to New Jersey. Now get to the city."
                                         />
                                         <EventCard 
                                             icon={<Icons.Building className="text-purple-400" />}
                                             time="Afternoon"
                                             title="Check-in: NOMO SOHO"
-                                            desc="Secure the perimeter. Verify thread count."
+                                            desc="Secure the perimeter. Verify high thread counts."
                                             location="9 Crosby St, New York"
                                         />
                                         <EventCard 
@@ -225,7 +237,7 @@
                                             icon={<Icons.Dumbbell className="text-zinc-400" />}
                                             time="AM"
                                             title="Iron Temple"
-                                            desc="Workout. Get the pump before the demo."
+                                            desc="Workout. Get the pump before the demo. Essential."
                                         />
                                         <EventCard 
                                             icon={<Icons.Zap className="text-yellow-400" />}
@@ -238,7 +250,7 @@
                                             icon={<Icons.Users className="text-pink-400" />}
                                             time="Night"
                                             title="UT Austin Reunion"
-                                            desc="Drinks with the ladies. Hook 'em."
+                                            desc="Drinks with the ladies. Hook 'em. 🤘"
                                             tag="Social"
                                         />
                                     </div>
@@ -251,16 +263,16 @@
                                     
                                     <div className="space-y-6">
                                         <EventCard 
-                                            icon={<Icons.RealPlane className="text-red-400" />}
-                                            time="10:00 AM"
+                                            icon={<Icons.RealPlane className="text-red-500" />}
+                                            time="10:05 AM"
                                             title="Tyler Extraction"
-                                            desc="Tyler departs LGA -> BNA."
+                                            desc="LGA -> BNA. Back to the country music capital."
                                         />
                                         <EventCard 
-                                            icon={<Icons.RealPlane className="text-blue-400" />}
-                                            time="1:00 PM"
+                                            icon={<Icons.RealPlane className="text-orange-500" />}
+                                            time="01:00 PM"
                                             title="Luke Extraction"
-                                            desc="Luke departs LGA -> DFW."
+                                            desc="EWR -> DFW. Mission Accomplished."
                                         />
                                     </div>
                                 </div>
